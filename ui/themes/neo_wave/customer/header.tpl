@@ -22,17 +22,15 @@
     {if isset($xheader)}
         {$xheader}
     {/if}
+</head>
 
+<body class="">
     <script>
-        // Dark Mode Init
-        const savedMode = localStorage.getItem('mode');
-        if (savedMode === 'dark') {
+        // Dark Mode Init - Prevents Flash of Light Mode
+        if (localStorage.getItem('mode') === 'dark') {
             document.body.classList.add('dark-mode');
         }
     </script>
-</head>
-
-<body class="{if isset($savedMode) && $savedMode == 'dark'}dark-mode{/if}">
     <div class="wrapper">
         <!-- Floating Sidebar -->
         <aside class="main-sidebar">

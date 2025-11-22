@@ -59,7 +59,7 @@
                                         <a href="{Text::url('order/send/radius/',$plan['id'],'&stoken=',App::getToken())}"
                                             onclick="return ask(this, '{Lang::T('Buy this for friend account?')}')"
                                             class="btn btn-success btn-block" style="margin-top: 0.5rem;">
-                                            {Lang::T('Buy for friend')}
+                                            <i data-feather="send" style="width: 16px; margin-right: 6px;"></i> {Lang::T('Buy for friend')}
                                         </a>
                                     {/if}
                                 </div>
@@ -116,7 +116,7 @@
                                         <a href="{Text::url('order/send/radius/', $plan['id'], '&stoken=', App::getToken())}"
                                             onclick="return ask(this, '{Lang::T('Buy this for friend account?')}')"
                                             class="btn btn-success btn-block" style="margin-top: 0.5rem;">
-                                            {Lang::T('Buy for friend')}
+                                            <i data-feather="send" style="width: 16px; margin-right: 6px;"></i> {Lang::T('Buy for friend')}
                                         </a>
                                     {/if}
                                 </div>

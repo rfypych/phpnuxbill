@@ -33,26 +33,18 @@
     <script src="{$app_url}/ui/ui/scripts/custom.js?v=2"></script>
 
     <script>
-        // Feather Icons
-        feather.replace();
-
-        // Sidebar Toggle
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            document.body.classList.toggle('sidebar-open');
-            const sidebar = document.querySelector('.main-sidebar');
-            if (sidebar.style.transform === 'translateX(0px)') {
-                sidebar.style.transform = '';
-            } else {
-                sidebar.style.transform = 'translateX(0px)';
-            }
-        });
-
-        // Dark Mode Logic
+        // Dark Mode Logic - Immediate Apply
+        const savedMode = localStorage.getItem('mode');
+        const body = document.body;
         const toggleBtn = document.getElementById('darkModeToggle');
         const icon = document.getElementById('darkModeIcon');
-        const body = document.body;
+
+        if (savedMode === 'dark') {
+            body.classList.add('dark-mode');
+        }
 
         function updateIcon() {
+            // Re-check body class in case it changed
             if (body.classList.contains('dark-mode')) {
                 icon.setAttribute('data-feather', 'sun');
             } else {
@@ -61,16 +53,40 @@
             feather.replace();
         }
 
-        // Set initial icon
-        updateIcon();
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', function() {
+                body.classList.toggle('sidebar-open');
+                const sidebar = document.querySelector('.main-sidebar');
+                // Mobile logic
+                if (window.innerWidth <= 768) {
+                    if (sidebar.style.transform === 'translateX(0px)') {
+                        sidebar.style.transform = '';
+                    } else {
+                        sidebar.style.transform = 'translateX(0px)';
+                    }
+                } else {
+                    // Desktop logic (optional collapse)
+                    body.classList.toggle('sidebar-collapse');
+                }
+            });
+        }
 
-        toggleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            localStorage.setItem('mode', isDark ? 'dark' : 'light');
-            updateIcon();
-        });
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                body.classList.toggle('dark-mode');
+                const isDark = body.classList.contains('dark-mode');
+                localStorage.setItem('mode', isDark ? 'dark' : 'light');
+                updateIcon();
+            });
+        }
+
+        // Feather Icons
+        feather.replace();
+        // Run update icon after feather replace to ensure icon exists
+        updateIcon();
 
         // Custom Modal Logic (Replacing Bootstrap Modal)
         const modalOverlay = document.getElementById('customModalOverlay');
